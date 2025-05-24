@@ -11,7 +11,7 @@
 
 #include "datetimes.h" // customized header file of date and times
 #include "productDB.h" // customized header file of product data base
-#include "categoryDB.h"
+#include "categoryDB.h" // customized header file of category data base
 
 
 

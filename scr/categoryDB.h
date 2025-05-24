@@ -1,5 +1,6 @@
 // categoryDB.h
 // 2025-05-21 by XERONAME
+// latest edit at 2025-05-25
 
 // conditional compiling to compile only once
 #ifndef COMPILED_CATEGORYDB // compiled the code from #ifndef to #endif, if the macro 'COMPILED_PRODUCTDB' was not defined before
