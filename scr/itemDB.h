@@ -11,6 +11,7 @@
 
 #include "datetimes.h" // customized header file of date and times
 #include "productDB.h" // customized header file of product data base
+#include "categoryDB.h"
 
 
 
@@ -19,13 +20,6 @@ typedef enum ExpiryDate : unsigned char {
     sellBy, // 유통 기한
     usedBy // 소비 기한
 } ExpDate;
-
-// type of item category
-typedef struct ItemCategory {
-    char* primary; // 첫 번째 분류
-    char* secondary; // 두 번째 분류
-    char* tertiary; // 세 번째 분류
-} ItemCat;
 
 
 
@@ -48,7 +42,7 @@ class Item {
         Date date_expiry; // 해당 품목의 만료 기한
         ExpDate date_expiry_type; // 해당 품목 만료 기한의 유형 (유통 또는 소비 기한)
 
-        ItemCat category; // 해당 품목의 유형(분류)
+        Icat* category; // 해당 품목의 유형(분류)
 
         int mass_gram; // 해당 품목의 질량 (단위 : 그램)
 
@@ -78,7 +72,7 @@ class Package {
         char* name; // 해당 패키지의 이름
         char* description; // 해당 패키지의 설명
 
-        ItemCat category; // 해당 패키지의 유형(분류)
+        Icat* category; // 해당 패키지의 유형(분류)
 
         int mass_gram; // 해당 패키지의 질량 (단위 : 그램)
 
@@ -110,7 +104,7 @@ class SPackage {
         char* name; // 해당 패키지의 이름
         char* description; // 해당 패키지의 설명
 
-        ItemCat category; // 해당 패키지의 유형(분류)
+        Icat* category; // 해당 패키지의 유형(분류)
 
         int mass_gram; // 해당 패키지의 질량 (단위 : 그램)
 
@@ -134,6 +128,22 @@ class SPackage {
 class ItemDB {
     private :
         std::vector<Item> list_items;
+
+    public :
+        //a
+};
+
+class PackageDB {
+    private :
+        std::vector<Package> list_packages;
+
+    public :
+        //a
+};
+
+class SPackageDB {
+    private :
+        std::vector<SPackage> list_spackages;
 
     public :
         //a
