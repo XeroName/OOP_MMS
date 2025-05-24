@@ -38,7 +38,6 @@ typedef struct Struct_product {
 
         assignCurrentDate(date_assigned); // assign the current date time
     }
-
 } Product;
 
 
@@ -59,20 +58,26 @@ class ProductDB {
         const char* product_description=(str_u8_none.c_str()),
         const char* product_vendor=(str_u8_unknown.c_str()))
         {
-            std::vector<Product>::iterator iter_inserted; // declare a variable to copy location of inserted element
-            // insert a Product element to end of vector named 'list_products', then copy iterator to variable named 'iter_inserted'
+            std::vector<Product>::iterator iter_inserted; // declare a variable to copy iterator of inserted element
+            // insert a Product element to next-of-end of vector named 'list_products', then copy iterator to variable named 'iter_inserted'
             iter_inserted = list_products.insert((list_products.end()), Product(product_name, product_description, product_vendor));
 
             return iter_inserted; // return iterator, where element inserted
         }
 
+        // access to specified product in productDB
+        Product& prod(const std::vector<Product>::iterator iter_target) {
+            unsigned int index_number = std::distance(list_products.begin(), iter_target);
+            return list_products[index_number];
+        }
+
         // erase a existing Product element from database
-        void eraseProduct(std::vector<Product>::iterator iter_target) {
+        void eraseProduct(const std::vector<Product>::iterator iter_target) {
             list_products.erase(iter_target); // erase element in vector where iterator points
         }
 
         // pop a existing Product element from database, and return it
-        Product popProduct(std::vector<Product>::iterator iter_target) {
+        Product popProduct(const std::vector<Product>::iterator iter_target) {
             unsigned int index_number = std::distance(list_products.begin(), iter_target);
             Product elemCopy = list_products[index_number];
             list_products.erase(iter_target); // erase element in vector where iterator points
