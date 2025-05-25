@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 // console_controls.h
 // 2025-05-13 by XERONAME
 // latest edit at 2025-05-25
@@ -64,7 +64,7 @@ void printConsole(std::string cntr[], int size, int idx) {
     for (; i < idx; i++) {
         std::cout << "[ ] " << cntr[i] << std::endl;
     }
-    std::cout << "[¢º] " << cntr[i++] << std::endl;
+    std::cout << "[â–¶] " << cntr[i++] << std::endl;
     for (; i < size; i++) {
         std::cout << "[ ] " << cntr[i] << std::endl;
 
@@ -74,12 +74,12 @@ void printConsole(std::string cntr[], int size, int idx) {
 // Scene 1
 sceneNum mainMenu() {
     int idx = 0, size = 4;
-    std::string cntr[4] = { "µ¥ÀÌÅÍ ¿­¶÷","µ¥ÀÌÅÍ °ü¸®" ,"Å©·¹µ÷","ÇÁ·Î±×·¥ Á¾·á" };
+    std::string cntr[4] = { "ë°ì´í„° ì—´ëžŒ","ë°ì´í„° ê´€ë¦¬" ,"í¬ë ˆë”§","í”„ë¡œê·¸ëž¨ ì¢…ë£Œ" };
     auto delay = std::chrono::steady_clock::now();
     std::chrono::milliseconds ms(100);
 
     consoleClear();
-    std::cout << "= PMS V1.0 =\n-¸ÞÀÎ ¸Þ´º/...\n" << std::endl;
+    std::cout << "= PMS V1.0 =\n-ë©”ì¸ ë©”ë‰´/...\n" << std::endl;
     printConsole(cntr, size, idx);
 
     while (1) {
@@ -98,7 +98,7 @@ sceneNum mainMenu() {
             }
             idx = (idx + size) % size;
             consoleClear();
-            std::cout << "= PMS V1.0 =\n-¸ÞÀÎ ¸Þ´º/...\n" << std::endl;
+            std::cout << "= PMS V1.0 =\n-ë©”ì¸ ë©”ë‰´/...\n" << std::endl;
             printConsole(cntr, size, idx);
             delay = std::chrono::steady_clock::now();
         }
@@ -120,12 +120,12 @@ sceneNum mainMenu() {
 // Scene 2
 sceneNum dataView() {
     int idx = 0, size = 6;
-    std::string cntr[6] = { "µ¹¾Æ°¡±â","Ä«Å×°í¸® ¿­¶÷" ,"Product ¿­¶÷","Item ¿­¶÷", "Package ¿­¶÷", "SPackage ¿­¶÷"};
+    std::string cntr[6] = { "ëŒì•„ê°€ê¸°","ì¹´í…Œê³ ë¦¬ ì—´ëžŒ" ,"Product ì—´ëžŒ","Item ì—´ëžŒ", "Package ì—´ëžŒ", "SPackage ì—´ëžŒ"};
     auto delay = std::chrono::steady_clock::now();
     std::chrono::milliseconds ms(100);
 
     consoleClear();
-    std::cout << "= PMS V1.0 =\n-¸ÞÀÎ ¸Þ´º/µ¥ÀÌÅÍ ¿­¶÷/...\n" << std::endl;
+    std::cout << "= PMS V1.0 =\n-ë©”ì¸ ë©”ë‰´/ë°ì´í„° ì—´ëžŒ/...\n" << std::endl;
     printConsole(cntr, size, idx);
 
     while (1) {
@@ -144,7 +144,7 @@ sceneNum dataView() {
             }
             idx = (idx + size) % size;
             consoleClear();
-            std::cout << "= PMS V1.0 =\n-¸ÞÀÎ ¸Þ´º/µ¥ÀÌÅÍ ¿­¶÷/...\n" << std::endl;
+            std::cout << "= PMS V1.0 =\n-ë©”ì¸ ë©”ë‰´/ë°ì´í„° ì—´ëžŒ/...\n" << std::endl;
             printConsole(cntr, size, idx);
             delay = std::chrono::steady_clock::now();
         }
@@ -171,12 +171,12 @@ sceneNum dataView() {
 // Scene 3
 sceneNum dataManage() {
     int idx = 0, size = 3;
-    std::string cntr[3] = { "µ¹¾Æ°¡±â","½Å±Ô µ¥ÀÌÅÍ »ý¼º" ,"±âÁ¸ µ¥ÀÌÅÍ ¼öÁ¤"};
+    std::string cntr[3] = { "ëŒì•„ê°€ê¸°","ì‹ ê·œ ë°ì´í„° ìƒì„±" ,"ê¸°ì¡´ ë°ì´í„° ìˆ˜ì •"};
     auto delay = std::chrono::steady_clock::now();
     std::chrono::milliseconds ms(100);
 
     consoleClear();
-    std::cout << "= PMS V1.0 =\n-¸ÞÀÎ ¸Þ´º/µ¥ÀÌÅÍ °ü¸®/...\n" << std::endl;
+    std::cout << "= PMS V1.0 =\n-ë©”ì¸ ë©”ë‰´/ë°ì´í„° ê´€ë¦¬/...\n" << std::endl;
     printConsole(cntr, size, idx);
 
     while (1) {
@@ -195,7 +195,7 @@ sceneNum dataManage() {
             }
             idx = (idx + size) % size;
             consoleClear();
-            std::cout << "= PMS V1.0 =\n-¸ÞÀÎ ¸Þ´º/µ¥ÀÌÅÍ °ü¸®/...\n" << std::endl;
+            std::cout << "= PMS V1.0 =\n-ë©”ì¸ ë©”ë‰´/ë°ì´í„° ê´€ë¦¬/...\n" << std::endl;
             printConsole(cntr, size, idx);
             delay = std::chrono::steady_clock::now();
         }
@@ -215,7 +215,7 @@ sceneNum dataManage() {
 // Scene 4
 sceneNum credit() {
     consoleClear();
-    std::cout << "PMS(Product Management System)\nVersion: 1.0.0 at 2025.6.1\n\nÁ¦ÀÛÀÚ :\n- ÀüÇüÁø\n- ÀÌÇöÁØ\n- ³ë½ÂÁØ\n- ÀÀ¿ì¿º ¸¸ È÷¿¡¿ì\n= °´Ã¼ÁöÇâÇÁ·Î±×·¡¹Ö Á¶º° È°µ¿ °úÁ¦ = " << std::endl;
+    std::cout << "PMS(Product Management System)\nVersion: 1.0.0 at 2025.6.1\n\nì œìž‘ìž :\n- ì „í˜•ì§„\n- ì´í˜„ì¤€\n- ë…¸ìŠ¹ì¤€\n- ì‘ìš°ì˜Œ ë§Œ ížˆì—ìš°\n= ê°ì²´ì§€í–¥í”„ë¡œê·¸ëž˜ë° ì¡°ë³„ í™œë™ ê³¼ì œ = " << std::endl;
     
     while (1) {
         int input;
@@ -231,12 +231,12 @@ sceneNum credit() {
 // Scene 5
 sceneNum dataCreate() {
     int idx = 0, size = 6;
-    std::string cntr[6] = { "µ¹¾Æ°¡±â","Ä«Å×°í¸® »ý¼º" ,"Product »ý¼º","Item »ý¼º", "Package »ý¼º", "SPackage »ý¼º" };
+    std::string cntr[6] = { "ëŒì•„ê°€ê¸°","ì¹´í…Œê³ ë¦¬ ìƒì„±" ,"Product ìƒì„±","Item ìƒì„±", "Package ìƒì„±", "SPackage ìƒì„±" };
     auto delay = std::chrono::steady_clock::now();
     std::chrono::milliseconds ms(100);
 
     consoleClear();
-    std::cout << "= PMS V1.0 =\n-¸ÞÀÎ ¸Þ´º/µ¥ÀÌÅÍ °ü¸®/½Å±Ô µ¥ÀÌÅÍ »ý¼º/...\n" << std::endl;
+    std::cout << "= PMS V1.0 =\n-ë©”ì¸ ë©”ë‰´/ë°ì´í„° ê´€ë¦¬/ì‹ ê·œ ë°ì´í„° ìƒì„±/...\n" << std::endl;
     printConsole(cntr, size, idx);
 
     while (1) {
@@ -255,7 +255,7 @@ sceneNum dataCreate() {
             }
             idx = (idx + size) % size;
             consoleClear();
-            std::cout << "= PMS V1.0 =\n-¸ÞÀÎ ¸Þ´º/µ¥ÀÌÅÍ ¿­¶÷/½Å±Ô µ¥ÀÌÅÍ »ý¼º/...\n" << std::endl;
+            std::cout << "= PMS V1.0 =\n-ë©”ì¸ ë©”ë‰´/ë°ì´í„° ì—´ëžŒ/ì‹ ê·œ ë°ì´í„° ìƒì„±/...\n" << std::endl;
             printConsole(cntr, size, idx);
             delay = std::chrono::steady_clock::now();
         }
@@ -281,12 +281,12 @@ sceneNum dataCreate() {
 // Scene 6
 sceneNum dataModify() {
     int idx = 0, size = 5;
-    std::string cntr[5] = { "µ¹¾Æ°¡±â","Ä«Å×°í¸® ¼öÁ¤","Item ¼öÁ¤", "Package ¼öÁ¤", "SPackage ¼öÁ¤" };
+    std::string cntr[5] = { "ëŒì•„ê°€ê¸°","ì¹´í…Œê³ ë¦¬ ìˆ˜ì •","Item ìˆ˜ì •", "Package ìˆ˜ì •", "SPackage ìˆ˜ì •" };
     auto delay = std::chrono::steady_clock::now();
     std::chrono::milliseconds ms(100);
 
     consoleClear();
-    std::cout << "= PMS V1.0 =\n-¸ÞÀÎ ¸Þ´º/µ¥ÀÌÅÍ ¿­¶÷/±âÁ¸ µ¥ÀÌÅÍ ¼öÁ¤/...\n" << std::endl;
+    std::cout << "= PMS V1.0 =\n-ë©”ì¸ ë©”ë‰´/ë°ì´í„° ì—´ëžŒ/ê¸°ì¡´ ë°ì´í„° ìˆ˜ì •/...\n" << std::endl;
     printConsole(cntr, size, idx);
 
     while (1) {
@@ -305,7 +305,7 @@ sceneNum dataModify() {
             }
             idx = (idx + size) % size;
             consoleClear();
-            std::cout << "= PMS V1.0 =\n-¸ÞÀÎ ¸Þ´º/µ¥ÀÌÅÍ ¿­¶÷/±âÁ¸ µ¥ÀÌÅÍ ¼öÁ¤/...\n" << std::endl;
+            std::cout << "= PMS V1.0 =\n-ë©”ì¸ ë©”ë‰´/ë°ì´í„° ì—´ëžŒ/ê¸°ì¡´ ë°ì´í„° ìˆ˜ì •/...\n" << std::endl;
             printConsole(cntr, size, idx);
             delay = std::chrono::steady_clock::now();
         }

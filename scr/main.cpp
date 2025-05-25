@@ -1,4 +1,4 @@
-// main.cpp
+﻿// main.cpp
 // 2025-05-13 by XERONAME
 // latest edit at 2025-05-25
 
@@ -27,7 +27,6 @@ int main(void) {
         default:
             terminateProgram(1, true, (str_err_u8_invalidScene.c_str()), (str_u8_debug.c_str()));
             break;
-
         case _mainMenu:
             // Scene : Main menu
             scene = mainMenu();
