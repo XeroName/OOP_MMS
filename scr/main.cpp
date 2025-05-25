@@ -5,10 +5,10 @@
 #include <iostream> // for std::cin and std::cout
 #include <vector> // for std::vector
 
-//#include "datetimes.h"
+#include "datetimes.h"
 #include "console_controls.h"
-//#include "productDB.h"
-//#include "itemDB.h"
+#include "productDB.h"
+#include "itemDB.h"
 
 //=========== Scene (parent) ============
 // 1 : main menu
@@ -35,7 +35,7 @@ int main(void) {
             // Scene : data view
             scene = dataView();
             break;
-        case _dataMange:
+        case _dataManage:
             // Scene : data manage
             scene = dataManage();
             break;
