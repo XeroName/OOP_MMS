@@ -89,6 +89,8 @@ sceneNum mainMenu() {
         if (input == 224 && std::chrono::steady_clock::now() - delay >= ms){
             input = _getch();
             switch (input) {
+            case 71:
+                return _mainMenu;
             case 72:
                 idx--;
                 break;
@@ -135,6 +137,8 @@ sceneNum dataView() {
         if (input == 224 && std::chrono::steady_clock::now() - delay >= ms) {
             input = _getch();
             switch (input) {
+            case 71:
+                return _mainMenu;
             case 72:
                 idx--;
                 break;
@@ -186,6 +190,8 @@ sceneNum dataManage() {
         if (input == 224 && std::chrono::steady_clock::now() - delay >= ms) {
             input = _getch();
             switch (input) {
+            case 71:
+                return _mainMenu;
             case 72:
                 idx--;
                 break;
@@ -246,6 +252,8 @@ sceneNum dataCreate() {
         if (input == 224 && std::chrono::steady_clock::now() - delay >= ms) {
             input = _getch();
             switch (input) {
+            case 71:
+                return _mainMenu;
             case 72:
                 idx--;
                 break;
@@ -255,7 +263,7 @@ sceneNum dataCreate() {
             }
             idx = (idx + size) % size;
             consoleClear();
-            std::cout << "= PMS V1.0 =\n-메인 메뉴/데이터 열람/신규 데이터 생성/...\n" << std::endl;
+            std::cout << "= PMS V1.0 =\n-메인 메뉴/데이터 관리/신규 데이터 생성/...\n" << std::endl;
             printConsole(cntr, size, idx);
             delay = std::chrono::steady_clock::now();
         }
@@ -286,7 +294,7 @@ sceneNum dataModify() {
     std::chrono::milliseconds ms(100);
 
     consoleClear();
-    std::cout << "= PMS V1.0 =\n-메인 메뉴/데이터 열람/기존 데이터 수정/...\n" << std::endl;
+    std::cout << "= PMS V1.0 =\n-메인 메뉴/데이터 관리/기존 데이터 수정/...\n" << std::endl;
     printConsole(cntr, size, idx);
 
     while (1) {
@@ -296,6 +304,8 @@ sceneNum dataModify() {
         if (input == 224 && std::chrono::steady_clock::now() - delay >= ms) {
             input = _getch();
             switch (input) {
+            case 71:
+                return _mainMenu;
             case 72:
                 idx--;
                 break;
@@ -305,7 +315,7 @@ sceneNum dataModify() {
             }
             idx = (idx + size) % size;
             consoleClear();
-            std::cout << "= PMS V1.0 =\n-메인 메뉴/데이터 열람/기존 데이터 수정/...\n" << std::endl;
+            std::cout << "= PMS V1.0 =\n-메인 메뉴/데이터 관리/기존 데이터 수정/...\n" << std::endl;
             printConsole(cntr, size, idx);
             delay = std::chrono::steady_clock::now();
         }
