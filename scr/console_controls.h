@@ -53,7 +53,7 @@ void terminateProgram(int code_exit, bool console_clear, const char* msg = (str_
         if (strcmp(msg_prefix, (str_u8_none.c_str())) == 0) {
             std::cout << msg << std::endl;
         }
-        else { std::cout << "[" << msg_prefix << "] " << msg << std::endl; }
+        else { std::cout << makeWrap(msg_prefix, 2) << " " << msg << std::endl; }
     }
 
     exit(code_exit); // terminate program (0=normal exit, 1=exit with error)
@@ -61,14 +61,10 @@ void terminateProgram(int code_exit, bool console_clear, const char* msg = (str_
 
 void printConsole(std::string cntr[], int size, int idx) {
     int i = 0;
-    for (; i < idx; i++) {
-        std::cout << "[ ] " << cntr[i] << std::endl;
-    }
-    std::cout << "[▶] " << cntr[i++] << std::endl;
-    for (; i < size; i++) {
-        std::cout << "[ ] " << cntr[i] << std::endl;
 
-    }
+    for (; i<idx; i++) { std::cout << makeWrap(str_u8_blank, 2) << " " << cntr[i] << std::endl; }
+    std::cout << makeWrap(str_u8_triRight, 2) << " " << cntr[i++] << std::endl;
+    for (; i<size; i++) { std::cout << makeWrap(str_u8_blank, 2) << " " << cntr[i] << std::endl; }
 }
 
 // Scene 1
@@ -89,8 +85,6 @@ sceneNum mainMenu() {
         if (input == 224 && std::chrono::steady_clock::now() - delay >= ms){
             input = _getch();
             switch (input) {
-            case 71:
-                return _mainMenu;
             case 72:
                 idx--;
                 break;
@@ -122,7 +116,7 @@ sceneNum mainMenu() {
 // Scene 2
 sceneNum dataView() {
     int idx = 0, size = 6;
-    std::string cntr[6] = { "돌아가기","카테고리 열람" ,"Product 열람","Item 열람", "Package 열람", "SPackage 열람"};
+    std::string cntr[6] = { "돌아가기", "Product 열람", "카테고리 열람", "Item 열람", "Package 열람", "SPackage 열람"};
     auto delay = std::chrono::steady_clock::now();
     std::chrono::milliseconds ms(100);
 
@@ -137,8 +131,6 @@ sceneNum dataView() {
         if (input == 224 && std::chrono::steady_clock::now() - delay >= ms) {
             input = _getch();
             switch (input) {
-            case 71:
-                return _mainMenu;
             case 72:
                 idx--;
                 break;
@@ -190,8 +182,6 @@ sceneNum dataManage() {
         if (input == 224 && std::chrono::steady_clock::now() - delay >= ms) {
             input = _getch();
             switch (input) {
-            case 71:
-                return _mainMenu;
             case 72:
                 idx--;
                 break;
@@ -221,7 +211,7 @@ sceneNum dataManage() {
 // Scene 4
 sceneNum credit() {
     consoleClear();
-    std::cout << "PMS(Product Management System)\nVersion: 1.0.0 at 2025.6.1\n\n제작자 :\n- 전형진\n- 이현준\n- 노승준\n- 응우옌 만 히에우\n= 객체지향프로그래밍 조별 활동 과제 = " << std::endl;
+    std::cout << "PMS(Product Management System)\nVersion: 1.0.0 at 2025.6.1\n\n제작자 :\n- 전형진\n- 이현준\n- 노승준\n- 응우옌 만 히에우\n\n= 객체지향프로그래밍 조별 활동 과제 = " << std::endl;
     
     while (1) {
         int input;
@@ -237,7 +227,7 @@ sceneNum credit() {
 // Scene 5
 sceneNum dataCreate() {
     int idx = 0, size = 6;
-    std::string cntr[6] = { "돌아가기","카테고리 생성" ,"Product 생성","Item 생성", "Package 생성", "SPackage 생성" };
+    std::string cntr[6] = { "돌아가기", "Product 생성", "카테고리 생성", "Item 생성", "Package 생성", "SPackage 생성" };
     auto delay = std::chrono::steady_clock::now();
     std::chrono::milliseconds ms(100);
 
@@ -252,8 +242,6 @@ sceneNum dataCreate() {
         if (input == 224 && std::chrono::steady_clock::now() - delay >= ms) {
             input = _getch();
             switch (input) {
-            case 71:
-                return _mainMenu;
             case 72:
                 idx--;
                 break;
@@ -263,7 +251,7 @@ sceneNum dataCreate() {
             }
             idx = (idx + size) % size;
             consoleClear();
-            std::cout << "= PMS V1.0 =\n-메인 메뉴/데이터 관리/신규 데이터 생성/...\n" << std::endl;
+            std::cout << "= PMS V1.0 =\n-메인 메뉴/데이터 열람/신규 데이터 생성/...\n" << std::endl;
             printConsole(cntr, size, idx);
             delay = std::chrono::steady_clock::now();
         }
@@ -289,12 +277,12 @@ sceneNum dataCreate() {
 // Scene 6
 sceneNum dataModify() {
     int idx = 0, size = 5;
-    std::string cntr[5] = { "돌아가기","카테고리 수정","Item 수정", "Package 수정", "SPackage 수정" };
+    std::string cntr[5] = { "돌아가기", "카테고리 수정", "Item 수정", "Package 수정", "SPackage 수정" };
     auto delay = std::chrono::steady_clock::now();
     std::chrono::milliseconds ms(100);
 
     consoleClear();
-    std::cout << "= PMS V1.0 =\n-메인 메뉴/데이터 관리/기존 데이터 수정/...\n" << std::endl;
+    std::cout << "= PMS V1.0 =\n-메인 메뉴/데이터 열람/기존 데이터 수정/...\n" << std::endl;
     printConsole(cntr, size, idx);
 
     while (1) {
@@ -304,8 +292,6 @@ sceneNum dataModify() {
         if (input == 224 && std::chrono::steady_clock::now() - delay >= ms) {
             input = _getch();
             switch (input) {
-            case 71:
-                return _mainMenu;
             case 72:
                 idx--;
                 break;
@@ -315,7 +301,7 @@ sceneNum dataModify() {
             }
             idx = (idx + size) % size;
             consoleClear();
-            std::cout << "= PMS V1.0 =\n-메인 메뉴/데이터 관리/기존 데이터 수정/...\n" << std::endl;
+            std::cout << "= PMS V1.0 =\n-메인 메뉴/데이터 열람/기존 데이터 수정/...\n" << std::endl;
             printConsole(cntr, size, idx);
             delay = std::chrono::steady_clock::now();
         }
