@@ -10,22 +10,48 @@
 #include "productDB.h"
 #include "itemDB.h"
 
-
-
-int scene = 1; // scene number to switch screen scene
-ConsoleHandler cHandler; // create new instance of customized console handler
-
-
+//=========== Scene (parent) ============
+// 1 : main menu
+// 2 : data view            (1)
+// 3 : data manage          (1)
+// 4 : credit               (1)
+// 5 : data create          (3)
+// 6 : data modify          (3) 
+//=======================================
 
 int main(void) {
-    while (scene > 0) {
-        switch (scene) {
-            default :
-                terminateProgram( 1, true, (str_err_u8_invalidScene.c_str()), (str_u8_debug.c_str()) );
-                break;
+    sceneNum scene = _mainMenu;
 
-            case 1 :
-                // Scene : Main menu
+    while (scene != _out) {
+        switch (scene) {
+        default:
+            terminateProgram(1, true, (str_err_u8_invalidScene.c_str()), (str_u8_debug.c_str()));
+            break;
+
+        case _mainMenu:
+            // Scene : Main menu
+            scene = mainMenu();
+            break;
+        case _dataView:
+            // Scene : data view
+            scene = dataView();
+            break;
+        case _dataMange:
+            // Scene : data manage
+            scene = dataManage();
+            break;
+        case _credit:
+            // Scene : credit
+            scene = credit();
+            break;
+        case _dataCreate:
+            // Scene : data create
+            scene = dataCreate();
+            break;
+        case _dataModify:
+            // Scene : data modify
+            scene = dataModify();
+            break;
         }
     }
 
