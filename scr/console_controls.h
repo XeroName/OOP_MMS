@@ -58,23 +58,20 @@ void terminateProgram(int code_exit, bool console_clear, const char* msg = (str_
         if (strcmp(msg_prefix, (str_u8_none.c_str())) == 0) {
             std::cout << msg << std::endl;
         }
-        else { std::cout << "[" << msg_prefix << "] " << msg << std::endl; }
+        else { std::cout << makeWrap(msg_prefix, 2) << " " << msg << std::endl; }
     }
 
     exit(code_exit); // terminate program (0=normal exit, 1=exit with error)
 }
 
 void printConsole(const std::string& path,const std::vector<std::string>& cntr, int size, int idx) {
-    std::cout << "= PMS V1.0 =" << std::endl;
+    std::cout << makeWrap(" PMS V1.0 ", 4) << std::endl;
     std::cout << "-" << path << "/...\n" << std::endl;
+
     int i = 0;
-    for (; i < idx; i++) {
-        std::cout << "[ ] " << cntr[i] << std::endl;
-    }
-    std::cout << "[▶] " << cntr[i++] << std::endl;
-    for (; i < size; i++) {
-        std::cout << "[ ] " << cntr[i] << std::endl;
-    }
+    for (; i<idx; i++) { std::cout << makeWrap(str_u8_blank, 2) << " " << cntr[i] << std::endl; }
+    std::cout << makeWrap(str_u8_triRight, 2) << " " << cntr[i++] << std::endl;
+    for (; i<size; i++) { std::cout << makeWrap(str_u8_blank, 2) << " " << cntr[i] << std::endl; }
 }
 
 sceneNum showMenu(const std::string& path, const std::vector<std::string>& options, const std::vector<sceneNum>& transitions) {
