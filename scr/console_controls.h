@@ -1,7 +1,7 @@
 ﻿#pragma once
 // console_controls.h
 // 2025-05-13 by XERONAME
-// latest edit at 2025-05-25
+// latest edit at 2025-05-28
 
 // conditional compiling to compile only once
 #ifndef COMPILED_CONSOLECTRLS // compiled the code from #ifndef to #endif, if the macro 'COMPILED_CONSOLECTRLS' was not defined before
@@ -58,20 +58,20 @@ void terminateProgram(int code_exit, bool console_clear, const char* msg = (str_
         if (strcmp(msg_prefix, (str_u8_none.c_str())) == 0) {
             std::cout << msg << std::endl;
         }
-        else { std::cout << makeWrap(msg_prefix, 2) << " " << msg << std::endl; }
+        else { std::cout << makeWrap(msg_prefix, '[') << " " << msg << std::endl; }
     }
 
     exit(code_exit); // terminate program (0=normal exit, 1=exit with error)
 }
 
 void printConsole(const std::string& path,const std::vector<std::string>& cntr, int size, int idx) {
-    std::cout << makeWrap(" PMS V1.0 ", 4) << std::endl;
-    std::cout << "-" << path << "/...\n" << std::endl;
+    std::cout << makeWrap(" PMS V1.0 ", '=') << std::endl;
+    std::cout << "경로 | " << path << "/...\n" << std::endl;
 
     int i = 0;
-    for (; i<idx; i++) { std::cout << makeWrap(str_u8_blank, 2) << " " << cntr[i] << std::endl; }
-    std::cout << makeWrap(str_u8_triRight, 2) << " " << cntr[i++] << std::endl;
-    for (; i<size; i++) { std::cout << makeWrap(str_u8_blank, 2) << " " << cntr[i] << std::endl; }
+    for (; i<idx; i++) { std::cout << makeWrap(str_u8_blank, '[') << " " << cntr[i] << std::endl; }
+    std::cout << makeWrap(str_u8_triRight, '[') << " " << cntr[i++] << std::endl;
+    for (; i<size; i++) { std::cout << makeWrap(str_u8_blank, '[') << " " << cntr[i] << std::endl; }
 }
 
 sceneNum showMenu(const std::string& path, const std::vector<std::string>& options, const std::vector<sceneNum>& transitions) {

@@ -1,6 +1,6 @@
 // strings_defined.h
 // 2025-05-05 by XERONAME
-// latest edit at 2025-05-25
+// latest edit at 2025-05-28
 
 // conditional compiling to compile only once
 #ifndef COMPILED_STRDEFINED // compiled the code from #ifndef to #endif, if the macro 'COMPILED_STRDEFINED' was not defined before
@@ -10,17 +10,13 @@
 
 
 
-// wrapping-string function
-std::string makeWrap(std::string str_target, char type_wrap) {
-    switch (type_wrap) {
-        default : return str_target;
-        case 0 : return ('(' +str_target +')');
-        case 1 : return ('{' +str_target +'}');
-        case 2 : return ('[' +str_target +']');
-        case 3 : return ('-' +str_target +'-');
-        case 4 : return ('=' +str_target +'=');
-        case 5 : return ('*' +str_target +'*');
-        case 6 : return ('~' +str_target +'~');
+// wrap the target string with desired character
+std::string makeWrap(std::string str_target, char character_wrap) {
+    switch (character_wrap) {
+        default : return (character_wrap +str_target +character_wrap);
+        case 40 : case 41 : return ('(' +str_target +')');
+        case 123 : case 125 : return ('{' +str_target +'}');
+        case 91 : case 93 : return ('[' +str_target +']');
     }
 }
 
