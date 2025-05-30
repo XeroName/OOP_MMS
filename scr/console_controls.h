@@ -10,6 +10,8 @@
 #define KEY_HOME 71
 #define KEY_UP 72
 #define KEY_DOWN 80
+#define KEY_ESC 27
+#define KEY_ENTER 13
 
 #include <windows.h>
 #include <iostream> // for std::cout and std::cin
@@ -74,7 +76,7 @@ void printConsole(const std::string& path,const std::vector<std::string>& cntr, 
     for (; i<size; i++) { std::cout << makeWrap(str_u8_blank, '[') << " " << cntr[i] << std::endl; }
 }
 
-sceneNum showMenu(const std::string& path, const std::vector<std::string>& options, const std::vector<sceneNum>& transitions) {
+sceneNum showMenu(const std::string& path, const std::vector<std::string>& options, const std::vector<sceneNum>& transitions, sceneNum preScene) {
     int idx = 0;
     const int size = options.size();
     auto delay = std::chrono::steady_clock::now();
@@ -101,10 +103,13 @@ sceneNum showMenu(const std::string& path, const std::vector<std::string>& optio
             idx = (idx + size) % size;
             delay = std::chrono::steady_clock::now();
         }
-        if (input == 13) {
-            if (idx >= 0 && idx < transitions.size()) {
+        switch(input){
+            case KEY_ENTER:
+                if (idx >= 0 && idx < transitions.size()) {
                 return transitions[idx];
             }
+            case KEY_ESC:
+                return preScene;
         }
     }
 }
@@ -113,14 +118,14 @@ sceneNum showMenu(const std::string& path, const std::vector<std::string>& optio
 sceneNum mainMenu() {
     std::vector<std::string> options = {"데이터 열람","데이터 관리" ,"크레딧","프로그램 종료"};
     std::vector<sceneNum> sceneOptions = { _dataView, _dataManage, _credit, _out };
-    return showMenu("메인 메뉴", options, sceneOptions);
+    return showMenu("메인 메뉴", options, sceneOptions, _mainMenu);
 }
 
 // Scene 2
 sceneNum dataView() {
     std::vector<std::string> options =  { "돌아가기","카테고리 열람" ,"Product 열람","Item 열람", "Package 열람", "SPackage 열람" };
     std::vector<sceneNum> sceneOptions = { _mainMenu, _dataView, _dataView, _dataView,_dataView };
-    return showMenu("메인 메뉴", options, sceneOptions);
+    return showMenu("메인 메뉴", options, sceneOptions, _mainMenu);
 }
 
 
@@ -128,7 +133,7 @@ sceneNum dataView() {
 sceneNum dataManage() {
     std::vector<std::string> options = { "돌아가기","신규 데이터 생성" ,"기존 데이터 수정" };
     std::vector<sceneNum> sceneOptions = { _mainMenu, _dataCreate, _dataModify };
-    return showMenu("메인 메뉴", options, sceneOptions);
+    return showMenu("메인 메뉴", options, sceneOptions,_mainMenu);
 }
 
 // Scene 4
@@ -140,7 +145,7 @@ sceneNum credit() {
         int input;
         input = _getch();
 
-        if (input == 13) {
+        if (input == KEY_ENTER || input == KEY_ESC) {
             return _mainMenu;
         }
     }
@@ -151,14 +156,14 @@ sceneNum credit() {
 sceneNum dataCreate() {
     std::vector<std::string> options = { "돌아가기","카테고리 생성" ,"Product 생성","Item 생성", "Package 생성", "SPackage 생성" };
     std::vector<sceneNum> sceneOptions = { _dataManage, _dataCreate, _dataCreate, _dataCreate, _dataCreate, _dataCreate };
-    return showMenu("메인 메뉴", options, sceneOptions);
+    return showMenu("메인 메뉴", options, sceneOptions, _dataManage);
 }
 
 // Scene 6
 sceneNum dataModify() {
     std::vector<std::string> options = { "돌아가기","카테고리 수정","Item 수정", "Package 수정", "SPackage 수정" };
     std::vector<sceneNum> sceneOptions = { _dataManage, _dataModify, _dataModify, _dataModify, _dataModify };
-    return showMenu("메인 메뉴", options, sceneOptions);
+    return showMenu("메인 메뉴", options, sceneOptions, _dataManage);
 }
 
 #endif // end of the conditional compile
