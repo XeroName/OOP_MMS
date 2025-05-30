@@ -33,6 +33,21 @@ typedef enum sceneNum {
     _dataModify
 }sceneNum;
 
+int getConsoleWidth() {
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    return csbi.srWindow.Right - csbi.srWindow.Left + 1;
+}
+
+std::string fillOneLine(char input){
+    int width = getConsoleWidth();
+    std::string output = "";
+    for(int i = 0; i< width; i++){
+        output += input;
+    }
+    return output;
+}
+
 // clear the console screen
 // referenced from : https://stackoverflow.com/a/6487534
 void consoleClear() {
@@ -68,12 +83,15 @@ void terminateProgram(int code_exit, bool console_clear, const char* msg = (str_
 
 void printConsole(const std::string& path,const std::vector<std::string>& cntr, int size, int idx) {
     std::cout << makeWrap(" PMS V1.0 ", '=') << std::endl;
-    std::cout << "경로 | " << path << "/...\n" << std::endl;
+    std::cout << "경로 | " << path << "/..." << std::endl;
+    std::cout << fillOneLine('=') << std::endl;
 
     int i = 0;
     for (; i<idx; i++) { std::cout << makeWrap(str_u8_blank, '[') << " " << cntr[i] << std::endl; }
     std::cout << makeWrap(str_u8_triRight, '[') << " " << cntr[i++] << std::endl;
     for (; i<size; i++) { std::cout << makeWrap(str_u8_blank, '[') << " " << cntr[i] << std::endl; }
+    
+    std::cout << fillOneLine('=') << std::endl;
 }
 
 sceneNum showMenu(const std::string& path, const std::vector<std::string>& options, const std::vector<sceneNum>& transitions, sceneNum preScene) {
