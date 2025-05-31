@@ -48,6 +48,15 @@ std::string fillOneLine(char input){
     return output;
 }
 
+bool checkConsoleReSize(int& lastWidth){
+    int curWidth = getConsoleWidth();
+    if(curWidth != lastWidth){
+        lastWidth = curWidth;
+        return true;
+    }
+    return false;
+}
+
 // clear the console screen
 // referenced from : https://stackoverflow.com/a/6487534
 void consoleClear() {
@@ -96,38 +105,46 @@ void printConsole(const std::string& path,const std::vector<std::string>& cntr, 
 
 sceneNum showMenu(const std::string& path, const std::vector<std::string>& options, const std::vector<sceneNum>& transitions, sceneNum preScene) {
     int idx = 0;
+    bool reDraw = true;
     const int size = options.size();
     auto delay = std::chrono::steady_clock::now();
     std::chrono::milliseconds ms(100);
+    int curWidth = getConsoleWidth();
 
     while (1) {
-        consoleClear();
-        printConsole(path, options, size, idx);
-
-        int input = _getch();
-        
-        if (input == 224 && std::chrono::steady_clock::now() - delay >= ms) {
-            input = _getch();
-            switch (input) {
-            case KEY_HOME:
-                return _mainMenu;
-            case KEY_UP:
-                idx--;
-                break;
-            case KEY_DOWN:
-                idx++;
-                break;
-            }
-            idx = (idx + size) % size;
-            delay = std::chrono::steady_clock::now();
+        if(reDraw){
+            consoleClear();
+            printConsole(path, options, size, idx);
+            reDraw = false;
         }
-        switch(input){
-            case KEY_ENTER:
-                if (idx >= 0 && idx < transitions.size()) {
-                return transitions[idx];
+        reDraw = checkConsoleReSize(curWidth);
+        if(_kbhit()){
+            int input = _getch();
+        
+            if (input == 224 && std::chrono::steady_clock::now() - delay >= ms) {
+                input = _getch();
+                switch (input) {
+                case KEY_HOME:
+                    return _mainMenu;
+                 case KEY_UP:
+                    idx--;
+                    break;
+                case KEY_DOWN:
+                    idx++;
+                    break;
+                }
+                idx = (idx + size) % size;
+                delay = std::chrono::steady_clock::now();
+                reDraw = true;
             }
-            case KEY_ESC:
-                return preScene;
+            switch(input){
+                case KEY_ENTER:
+                    if (idx >= 0 && idx < transitions.size()) {
+                    return transitions[idx];
+                    }
+                case KEY_ESC:
+                    return preScene;
+            }
         }
     }
 }
