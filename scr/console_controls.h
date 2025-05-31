@@ -33,6 +33,30 @@ typedef enum sceneNum {
     _dataModify
 }sceneNum;
 
+int getConsoleWidth() {
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    return csbi.srWindow.Right - csbi.srWindow.Left + 1;
+}
+
+std::string fillOneLine(char input){
+    int width = getConsoleWidth();
+    std::string output = "";
+    for(int i = 0; i< width; i++){
+        output += input;
+    }
+    return output;
+}
+
+bool checkConsoleReSize(int& lastWidth){
+    int curWidth = getConsoleWidth();
+    if(curWidth != lastWidth){
+        lastWidth = curWidth;
+        return true;
+    }
+    return false;
+}
+
 // clear the console screen
 // referenced from : https://stackoverflow.com/a/6487534
 void consoleClear() {
@@ -68,48 +92,59 @@ void terminateProgram(int code_exit, bool console_clear, const char* msg = (str_
 
 void printConsole(const std::string& path,const std::vector<std::string>& cntr, int size, int idx) {
     std::cout << makeWrap(" PMS V1.0 ", '=') << std::endl;
-    std::cout << "경로 | " << path << "/...\n" << std::endl;
+    std::cout << "경로 | " << path << "/..." << std::endl;
+    std::cout << fillOneLine('=') << std::endl;
 
     int i = 0;
     for (; i<idx; i++) { std::cout << makeWrap(str_u8_blank, '[') << " " << cntr[i] << std::endl; }
     std::cout << makeWrap(str_u8_triRight, '[') << " " << cntr[i++] << std::endl;
     for (; i<size; i++) { std::cout << makeWrap(str_u8_blank, '[') << " " << cntr[i] << std::endl; }
+    
+    std::cout << fillOneLine('=') << std::endl;
 }
 
 sceneNum showMenu(const std::string& path, const std::vector<std::string>& options, const std::vector<sceneNum>& transitions, sceneNum preScene) {
     int idx = 0;
+    bool reDraw = true;
     const int size = options.size();
     auto delay = std::chrono::steady_clock::now();
     std::chrono::milliseconds ms(100);
+    int curWidth = getConsoleWidth();
 
     while (1) {
-        consoleClear();
-        printConsole(path, options, size, idx);
-
-        int input = _getch();
-        
-        if (input == 224 && std::chrono::steady_clock::now() - delay >= ms) {
-            input = _getch();
-            switch (input) {
-            case KEY_HOME:
-                return _mainMenu;
-            case KEY_UP:
-                idx--;
-                break;
-            case KEY_DOWN:
-                idx++;
-                break;
-            }
-            idx = (idx + size) % size;
-            delay = std::chrono::steady_clock::now();
+        if(reDraw){
+            consoleClear();
+            printConsole(path, options, size, idx);
+            reDraw = false;
         }
-        switch(input){
-            case KEY_ENTER:
-                if (idx >= 0 && idx < transitions.size()) {
-                return transitions[idx];
+        reDraw = checkConsoleReSize(curWidth);
+        if(_kbhit()){
+            int input = _getch();
+        
+            if (input == 224 && std::chrono::steady_clock::now() - delay >= ms) {
+                input = _getch();
+                switch (input) {
+                case KEY_HOME:
+                    return _mainMenu;
+                 case KEY_UP:
+                    idx--;
+                    break;
+                case KEY_DOWN:
+                    idx++;
+                    break;
+                }
+                idx = (idx + size) % size;
+                delay = std::chrono::steady_clock::now();
+                reDraw = true;
             }
-            case KEY_ESC:
-                return preScene;
+            switch(input){
+                case KEY_ENTER:
+                    if (idx >= 0 && idx < transitions.size()) {
+                    return transitions[idx];
+                    }
+                case KEY_ESC:
+                    return preScene;
+            }
         }
     }
 }
