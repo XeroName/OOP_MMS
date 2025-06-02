@@ -101,6 +101,7 @@ void printConsole(const std::string& path,const std::vector<std::string>& cntr, 
     for (; i<size; i++) { std::cout << makeWrap(str_u8_blank, '[') << " " << cntr[i] << std::endl; }
     
     std::cout << fillOneLine('=') << std::endl;
+    std::cout << "↑/↓: 이동 | ENTER: 자세히 보기 | ESC: 돌아가기 | HOME: 메인 메뉴 | F12: 저장 및 종료" << std::endl;
 }
 
 sceneNum showMenu(const std::string& path, const std::vector<std::string>& options, const std::vector<sceneNum>& transitions, sceneNum preScene) {
