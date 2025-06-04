@@ -11,7 +11,7 @@
 
 #include "datetimes.h" // customized header file of date and times
 #include "productDB.h" // customized header file of product data base
-#include "categoryDB.h" // customized header file of category data base
+//#include "categoryDB.h" // customized header file of category data base
 
 
 
@@ -42,7 +42,7 @@ class Item {
         Date date_expiry; // 해당 품목의 만료 기한
         ExpDate date_expiry_type; // 해당 품목 만료 기한의 유형 (유통 또는 소비 기한)
 
-        Icat* category; // 해당 품목의 유형(분류)
+        //Icat* category; // 해당 품목의 유형(분류)
 
         int mass_gram; // 해당 품목의 질량 (단위 : 그램)
 
@@ -57,6 +57,24 @@ class Item {
         bool on_sale; // 해당 품목의 판매 상태 (true=판매 중, false=판매 중이 아님)
 
     public :
+        Item(){
+            std::vector<std::string> option = {"이름","설명","제조자","원산지","공급자"};
+            std::vector<std::string> value = showInputMenu("메인 메뉴/데이터 관리/신규 데이터 생성/Item 생성",option);
+            if(value.empty()){
+                throw std::invalid_argument("생성 실패");
+            }
+            int i = 0;
+            strcpy(name, value[i++].c_str());
+            strcpy(description, value[i++].c_str());
+            strcpy(manufacturer, value[i++].c_str());
+            strcpy(country_origin, value[i++].c_str());
+            strcpy(vendor, value[i++].c_str());
+            assignCurrentDate(date_assigned);
+            assignCurrentDate(date_renewed);
+        }
+        
+        
+
         //a
 };
 
@@ -72,7 +90,7 @@ class Package {
         char* name; // 해당 패키지의 이름
         char* description; // 해당 패키지의 설명
 
-        Icat* category; // 해당 패키지의 유형(분류)
+        //Icat* category; // 해당 패키지의 유형(분류)
 
         int mass_gram; // 해당 패키지의 질량 (단위 : 그램)
 
@@ -104,7 +122,7 @@ class SPackage {
         char* name; // 해당 패키지의 이름
         char* description; // 해당 패키지의 설명
 
-        Icat* category; // 해당 패키지의 유형(분류)
+        //Icat* category; // 해당 패키지의 유형(분류)
 
         int mass_gram; // 해당 패키지의 질량 (단위 : 그램)
 
@@ -130,7 +148,16 @@ class ItemDB {
         std::vector<Item> list_items;
 
     public :
-        //a
+        ItemDB(){}
+        ~ItemDB(){}
+
+        void addItem(Item item){
+            list_items.push_back(item);
+        }
+
+        const std::vector<Item> getList(){
+            return list_items;
+        }
 };
 
 class PackageDB {

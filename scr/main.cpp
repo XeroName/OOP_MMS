@@ -1,4 +1,4 @@
-﻿// main.cpp
+// main.cpp
 // 2025-05-13 by XERONAME
 // latest edit at 2025-05-25
 
@@ -8,7 +8,7 @@
 #include "datetimes.h"
 #include "console_controls.h"
 //#include "productDB.h"
-//#include "itemDB.h"
+#include "itemDB.h"
 
 //=========== Scene (parent) ============
 // 1 : main menu
@@ -16,12 +16,12 @@
 // 3 : data manage          (1)
 // 4 : credit               (1)
 // 5 : data create          (3)
-// 6 : data modify          (3) 
+// 6 : data modify          (3)
 //=======================================
 
 int main(void) {
     sceneNum scene = _mainMenu;
-
+    ItemDB itemDB;
     while (scene != _out) {
         switch (scene) {
         default:
@@ -50,6 +50,15 @@ int main(void) {
         case _dataModify:
             // Scene : data modify
             scene = dataModify();
+            break;
+        case _createItem:
+            try{
+                Item newItem ;
+                itemDB.addItem(newItem);
+            }catch(const std::exception& e){
+                std::cout << e.what() << std::endl;
+            }
+            scene = _dataCreate;
             break;
         }
     }
